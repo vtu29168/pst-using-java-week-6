@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+
+class Result {
+    public static List<Integer> circularPalindromes(String s) {
+        int n=s.length();
+        List<Integer> ans=new ArrayList<>();
+
+        for(int k=0;k<n;k++){
+            String t=s.substring(k)+s.substring(0,k);
+            int best=1;
+
+            for(int c=0;c<n;c++){
+                int l=c,r=c;
+                while(l>=0&&r<n&&t.charAt(l)==t.charAt(r)){
+                    best=Math.max(best,r-l+1); l--; r++;
+                }
+                l=c;r=c+1;
+                while(l>=0&&r<n&&t.charAt(l)==t.charAt(r)){
+                    best=Math.max(best,r-l+1); l--; r++;
+                }
+            }
+            ans.add(best);
+        }
+        return ans;
+    }
+}
+
+public class Solution {
+    public static void main(String[] args)throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int n=Integer.parseInt(br.readLine());
+        String s=br.readLine();
+        for(int x:Result.circularPalindromes(s))
+            System.out.println(x);
+    }
+}
